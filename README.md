@@ -19,6 +19,7 @@ git clone https://github.com/ycraurora/stellauto.git
 ```
 sudo chmod a+x install_docker.sh
 ./install_docker.sh
+xhost +
 sudo chmod a+x startup.sh
 ./startup.sh
 ```
