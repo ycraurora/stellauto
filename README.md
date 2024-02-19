@@ -7,9 +7,20 @@ StellaAutonomous System 脚本工具
 git clone https://github.com/ycraurora/stellauto.git
 ```
 
-### Ubuntu配置脚本(WIP)
+### Ubuntu配置脚本
+基于ubuntu 18.04 desktop的开发环境配置
+1. 在ubuntu文件夹中存在shell脚本env_setup.sh：
+```
+sudo chmod a+x env_setup.sh
+./env_setup.sh
+```
+2. 使用vscode进行项目开发。
+
+- 注意
+避免将本项目或脚本放置在`~/workspace/third`中。
 
 ### docker配置脚本
+基于docker的开发环境配置：
 - Windows
 1. 于官网中下载docker desktop安装文件并安装；
 2. 下载ycrad/stellauto:latest镜像，并创建容器；
@@ -24,6 +35,7 @@ sudo chmod a+x startup.sh
 ./startup.sh
 ```
 2. 使用vscode与dev container插件连接镜像即可。
+
 - 注意
 若在vscode中使用clangd，需要将clangd path设置为`/usr/bin/clangd`。
 
