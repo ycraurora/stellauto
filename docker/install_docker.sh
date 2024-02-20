@@ -1,4 +1,5 @@
 #! /bin/bash
+set -e
 # 添加 docker官方 GPG key:
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl

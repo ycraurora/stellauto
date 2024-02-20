@@ -2,7 +2,9 @@
 
 ##!@AUTHOR: ycrad
 ##!Automatic setup environment requirments for StellaAutonomous System.
+set -e
 
+# 下载并安装cmake-3.28.3
 function setup_cmake() {
     wget https://github.com/Kitware/CMake/releases/download/v3.28.3/cmake-3.28.3.tar.gz
     tar xvf cmake-3.28.3.tar.gz
@@ -14,6 +16,7 @@ function setup_cmake() {
     cd $workdir
 }
 
+# 下载并安装GeographicLib-1.48
 function setup_geolib() {
     wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.48.tar.gz
     tar xvf GeographicLib-1.48.tar.gz
@@ -26,6 +29,7 @@ function setup_geolib() {
     cd $workdir
 }
 
+# 下载并安装gflags
 function setup_gflags() {
     git clone https://github.com/gflags/gflags.git
     cd gflags
@@ -36,6 +40,7 @@ function setup_gflags() {
     cd $workdir
 }
 
+# 下载并安装glog
 function setup_glog() {
     git clone https://github.com/google/glog.git
     cd glog
@@ -46,6 +51,7 @@ function setup_glog() {
     cd $workdir
 }
 
+# 下载并安装boost
 function setup_boost() {
     wget https://boostorg.jfrog.io/artifactory/main/release/1.65.1/source/boost_1_65_1.tar.gz
     tar xvf boost_1_65_1.tar.gz
@@ -57,6 +63,7 @@ function setup_boost() {
     cd $workdir
 }
 
+# 下载并安装opencv
 function setup_opencv {
     sudo apt-get install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
     sudo apt-get install -y python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev
@@ -69,6 +76,7 @@ function setup_opencv {
     cd $workdir
 }
 
+# 执行
 function run() {
     sudo apt-get install -y gcc g++ git make gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libpugixml-dev wget unzip libssl-dev build-essential
     cd $defaultdir
@@ -91,12 +99,16 @@ function run() {
     cd $defaultdir
 }
 
+# 清理
 function clean() {
     rm -rf ~/workspace/third
 }
 
+# 默认路径
 defautdir=~
+# 工作路径
 workdir=~/workspace/third
+# 简单的选项菜单
 PS3="Enter option: "
 select option in "Only setup env" "Setup and clean"
 do

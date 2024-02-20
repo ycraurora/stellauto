@@ -1,5 +1,6 @@
 #! /bin/bash
 
+set -e
 # 判断本地是否存在docker镜像ycrad/stellauto:latest
 if [ -z "$(docker images -q ycrad/stellauto:latest 2> /dev/null)" ]; then
   # 不存在镜像，则拉取该镜像
