@@ -114,13 +114,15 @@ select option in "Only setup env" "Setup and clean"
 do
     case $option in
     "Only setup env")
-    run ;;
+    run 
+    break ;;
     "Setup and clean")
     run
-    clean ;;
+    clean 
+    break ;;
     *)
-    clear
     echo "Invalid option." ;;
     esac
 done
-clear
+echo "Environment setup done."
+exit 1
