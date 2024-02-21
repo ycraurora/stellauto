@@ -12,6 +12,7 @@ fi
 if [ -z "$(docker ps -a --filter ancestor=ycrad/stellauto:latest --format '{{.ID}}')" ]; then
   # 不存在容器，则新建一个名为stellauto的容器
   echo "不存在使用镜像ycrad/stellauto:latest的容器，正在新建..."
+  xhost +
   docker run -it -d -u stella -p 23459:23459 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name stellauto ycrad/stellauto:latest
 fi
 

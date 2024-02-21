@@ -15,7 +15,11 @@ sudo apt-get update
 # 安装最新版本docker
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 # 添加docker用户组
-sudo groupadd docker
+# sudo groupadd docker
+result=$(cat /etc/group | grep docker)
+if [ ! -n "$result" ]; then
+  sudo groupadd docker
+fi
 # 将当前用户添加至docker用户组
 sudo gpasswd -a $USER docker
 newgrp docker
