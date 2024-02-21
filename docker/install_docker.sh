@@ -23,6 +23,5 @@ fi
 # 将当前用户添加至docker用户组
 sudo gpasswd -a $USER docker
 newgrp docker
-echo "Docker installation done. Please check using 'docker --version'."
-
-exit 0
+sudo chmod o+rw /var/run/docker.sock
+exit 1

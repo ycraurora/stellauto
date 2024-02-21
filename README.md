@@ -1,12 +1,12 @@
 # stellauto
 StellaAutonomous System 脚本工具
 
-详细环境部署请参看本repo的[Wiki](https://github.com/ycraurora/stellauto/wiki)
+详细环境部署请参看本repo的[Wiki](https://github.com/ycraurora/stellauto-env/wiki)
 
 ## 用法
 使用git下载脚本至本地
 ```
-git clone https://github.com/ycraurora/stellauto.git
+git clone https://github.com/ycraurora/stellauto-env.git
 ```
 
 ### Ubuntu配置脚本
