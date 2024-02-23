@@ -18,10 +18,10 @@ function setup_cmake() {
 
 # 下载并安装GeographicLib-1.48
 function setup_geolib() {
-    wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-1.48.tar.gz
-    tar xvf GeographicLib-1.48.tar.gz
-    rm -rf GeographicLib-1.48.tar.gz
-    cd GeographicLib-1.48
+    wget https://sourceforge.net/projects/geographiclib/files/distrib/GeographicLib-2.3.tar.gz
+    tar xvf GeographicLib-2.3.tar.gz
+    rm -rf GeographicLib-2.3.tar.gz
+    cd GeographicLib-2.3
     mkdir build && cd build
     cmake ..
     make -j4
@@ -40,24 +40,13 @@ function setup_gflags() {
     cd $workdir
 }
 
-# 下载并安装glog
-function setup_glog() {
-    git clone https://github.com/google/glog.git
-    cd glog
-    mkdir build && cd build
-    cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DBUILD_SHARED_LIBS=on -G "Unix Makefiles" ..
-    make -j4
-    sudo make install
-    cd $workdir
-}
-
 # 下载并安装boost
 function setup_boost() {
-    wget https://boostorg.jfrog.io/artifactory/main/release/1.65.1/source/boost_1_65_1.tar.gz
-    tar xvf boost_1_65_1.tar.gz
-    rm -rf boost_1_65_1.tar.gz
-    cd boost_1_65_1
-    ./bootstrap.sh
+    wget https://boostorg.jfrog.io/artifactory/main/release/1.84.0/source/boost_1_84_0.tar.gz
+    tar xvf boost_1_84_0.tar.gz
+    rm -rf boost_1_84_0.tar.gz
+    cd boost_1_84_0
+    ./bootstrap.sh --with-libraries=filesystem,system,serialization
     ./b2
     sudo ./b2 install
     cd $workdir
@@ -92,8 +81,6 @@ function run() {
     fi
     setup_cmake
     setup_geolib
-    setup_gflags
-    setup_glog
     setup_boost
     setup_opencv
     cd $defaultdir
