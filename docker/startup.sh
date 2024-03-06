@@ -14,6 +14,7 @@ if [ -z "$(docker ps -a --filter ancestor=ycrad/stellauto:latest --format '{{.ID
   echo "不存在使用镜像ycrad/stellauto:latest的容器，正在新建..."
   xhost +
   docker run -it -d -u stella -p 23459:23459 -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name stellauto ycrad/stellauto:latest
+  docker exec -it -u stella stellauto /bin/bash -c "cd ~ && mkdir workspace && mkdir workspace/dev"
 fi
 
 # 获取容器的ID
