@@ -10,11 +10,13 @@ while true; do
     1)
       echo "即将部署Ubuntu镜像"
       image="stellauto"
+      workdir="dev"
       break
       ;;
     2)
       echo "即将部署ROS2镜像"
       image="stellauto-ros2"
+      workdir="stellauto-sim"
       break
       ;;
     *)
@@ -38,7 +40,7 @@ if [ -z "$(docker ps -a --filter ancestor=ycrad/$image:latest --format '{{.ID}}'
   echo "不存在使用镜像ycrad/$image:latest的容器，正在新建..."
   xhost +
   docker run -it -d -u stella -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $image ycrad/$image:latest
-  docker exec -it -u stella $image /bin/bash -c "cd ~ && mkdir workspace && mkdir workspace/dev"
+  docker exec -it -u stella $image /bin/bash -c "cd ~ && mkdir workspace && mkdir workspace/$workdir"
 fi
 
 # 获取容器的ID
