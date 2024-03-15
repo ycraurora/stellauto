@@ -39,7 +39,7 @@ if [ -z "$(docker ps -a --filter ancestor=ycrad/$image:latest --format '{{.ID}}'
   # 不存在容器，则新建一个名为$image的容器
   echo "不存在使用镜像ycrad/$image:latest的容器，正在新建..."
   xhost +
-  docker run -it -d -u stella -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $image ycrad/$image:latest
+  docker run -it -d -u stella --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $image ycrad/$image:latest
   docker exec -it -u stella $image /bin/bash -c "cd ~ && mkdir workspace && mkdir workspace/$workdir"
 fi
 
