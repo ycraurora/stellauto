@@ -54,35 +54,35 @@ function setup_boost() {
 
 # 下载并安装opencv
 function setup_opencv {
-    sudo apt-get install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev && \
-    sudo apt-get install -y libjpeg-dev libpng-dev && \
-    git clone https://github.com/opencv/opencv.git -b 3.4.5 && \
-    cd opencv && \
-    mkdir build && cd build && \
-    cmake -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_LIST=videoio,imgcodec,highgui \
-    -DWITH_JPEG=ON \
-    -DWITH_PNG=ON \
-    -DWITH_TIFF=OFF \
-    -DWITH_WEBP=OFF \
-    -DWITH_OPENJPEG=OFF \
-    -DWITH_JASPER=OFF \
-    -DWITH_OPENEXR=OFF \
-    -DWITH_V4L=OFF \
-    -DWITH_FFMPEG=OFF \
-    -DWITH_GSTREAMER=OFF \
-    -DWITH_MSMF=OFF \
-    -DWITH_AVFOUNDATION=OFF \
-    -DWITH_1394=OFF \
-    -DBUILD_OPENCL=OFF \
-    -DBUILD_TESTS=OFF \
-    -DBUILD_PERF_TESTS=OFF \
-    -DBUILD_EXAMPLES=OFF \
-    -DBUILD_opencv_apps=OFF \
-    -DBUILD_SHARED_LIBS=on \
-    -DCMAKE_INSTALL_PREFIX=/usr/local .. && \
-    make -j4 && \
-    sudo make install
+    sudo apt-get install -y libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev &&
+        sudo apt-get install -y libjpeg-dev libpng-dev &&
+        git clone https://github.com/opencv/opencv.git -b 3.4.5 &&
+        cd opencv &&
+        mkdir build && cd build &&
+        cmake -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_LIST=videoio,imgcodec,highgui \
+            -DWITH_JPEG=ON \
+            -DWITH_PNG=ON \
+            -DWITH_TIFF=OFF \
+            -DWITH_WEBP=OFF \
+            -DWITH_OPENJPEG=OFF \
+            -DWITH_JASPER=OFF \
+            -DWITH_OPENEXR=OFF \
+            -DWITH_V4L=OFF \
+            -DWITH_FFMPEG=OFF \
+            -DWITH_GSTREAMER=OFF \
+            -DWITH_MSMF=OFF \
+            -DWITH_AVFOUNDATION=OFF \
+            -DWITH_1394=OFF \
+            -DBUILD_OPENCL=OFF \
+            -DBUILD_TESTS=OFF \
+            -DBUILD_PERF_TESTS=OFF \
+            -DBUILD_EXAMPLES=OFF \
+            -DBUILD_opencv_apps=OFF \
+            -DBUILD_SHARED_LIBS=on \
+            -DCMAKE_INSTALL_PREFIX=/usr/local .. &&
+        make -j4 &&
+        sudo make install
     cd $workdir
 }
 
@@ -118,18 +118,20 @@ defautdir=~
 workdir=~/workspace/third
 # 简单的选项菜单
 PS3="Enter option: "
-select option in "Only setup env" "Setup and clean"
-do
+select option in "Only setup env" "Setup and clean"; do
     case $option in
     "Only setup env")
-    run 
-    break ;;
+        run
+        break
+        ;;
     "Setup and clean")
-    run
-    clean 
-    break ;;
+        run
+        clean
+        break
+        ;;
     *)
-    echo "Invalid option." ;;
+        echo "Invalid option."
+        ;;
     esac
 done
 echo "Environment setup done."
