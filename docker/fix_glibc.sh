@@ -5,21 +5,21 @@ set -e
 cd "$(dirname "$0")"
 
 # 输入 docker 容器名称
-read -p "Please enter docker container name[DEFAULT: stellauto]: " container
+read -p "请输入 docker 容器名称 [DEFAULT: stellauto]: " container
 container=${container:-stellauto}
-echo "Docker container target $container."
+echo "Docker 容器名称: $container."
 
 # 检查 docker 容器是否存在
 result=$(docker inspect --format="{{.State.Running}}" $container 2>/dev/null)
 if [ "$result" == "true" ]; then
-    echo "Docker container $container exists and is running. Restarting..."
+    echo "Docker 容器 $container 存在且正在运行. 重启容器..."
     docker stop $container
     docker start $container
 elif [ "$result" == "false" ]; then
-    echo "Docker container $container exists but is not running. Starting..."
+    echo "Docker 容器 $container 存在但未运行. 启动容器..."
     docker start $container
 else
-    echo "Docker container $container does not exist."
+    echo "Docker 容器 $container 不存在."
     exit 0
 fi
 
@@ -33,3 +33,5 @@ docker cp resource/fix.sh $container:/home/stella/
 
 # 进入 docker 容器并执行 fix.sh
 docker exec -it $container /bin/bash /home/stella/fix.sh
+
+echo "修复完成."

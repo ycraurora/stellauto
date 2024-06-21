@@ -88,6 +88,7 @@ function setup_opencv {
 
 # 执行
 function run() {
+    echo "安装依赖..."
     sudo apt-get install -y gcc g++ git make gcc-aarch64-linux-gnu g++-aarch64-linux-gnu libpugixml-dev wget unzip libssl-dev build-essential
     cd $defaultdir
     if [ -e workspace ]; then
@@ -100,9 +101,15 @@ function run() {
     else
         mkdir third && cd third
     fi
+    echo "安装 cmake..."
     setup_cmake
+    echo "安装 GeographicLib..."
     setup_geolib
+    echo "安装 boost..."
     setup_boost
+    echo "安装 gflags..."
+    setup_gflags
+    echo "安装 OpenCV..."
     setup_opencv
     cd $defaultdir
 }
@@ -117,22 +124,22 @@ defautdir=~
 # 工作路径
 workdir=~/workspace/third
 # 简单的选项菜单
-PS3="Enter option: "
-select option in "Only setup env" "Setup and clean"; do
+PS3="输入选项: "
+select option in "仅安装环境" "安装环境并清理"; do
     case $option in
-    "Only setup env")
+    "仅安装环境")
         run
         break
         ;;
-    "Setup and clean")
+    "安装环境并清理")
         run
         clean
         break
         ;;
     *)
-        echo "Invalid option."
+        echo "无效选项, 请重新输入."
         ;;
     esac
 done
-echo "Environment setup done."
+echo "环境安装完成."
 exit 1
