@@ -4,7 +4,8 @@ while true; do
     echo "请选择需要部署的镜像: "
     echo "1. Ubuntu"
     echo "2. ROS2"
-    read -p "输入选择(1/2): " image_choice
+    echo "3. Xmake"
+    read -p "输入选择(1-3): " image_choice
 
     case $image_choice in
     1)
@@ -17,8 +18,13 @@ while true; do
         image="stellauto-ros2"
         break
         ;;
+    3)
+        echo "即将部署 Xmake 镜像"
+        image="stellauto-xmake"
+        break
+        ;;
     *)
-        echo "无效的输入. 请输入 '1' 或 '2'."
+        echo "无效的输入. 请输入 1-3."
         ;;
     esac
 done
