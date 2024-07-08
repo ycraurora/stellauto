@@ -5,12 +5,12 @@ echo "添加 Docker 官方 GPG key"
 sudo apt-get update
 sudo apt-get install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo -E curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 # 添加apt源
 echo "添加 apt 源"
 echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" |
     sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
 sudo apt-get update
@@ -25,8 +25,6 @@ if [ ! -n "$result" ]; then
 fi
 # 将当前用户添加至docker用户组
 echo "将当前用户添加至 Docker 用户组"
-sudo gpasswd -a $USER docker
-newgrp docker
-sudo chmod o+rw /var/run/docker.sock
-echo "安装成功"
-exit 1
+sudo usermod -aG docker $USER
+echo "安装成功, 注销并重新登录后生效"
+exit 0
