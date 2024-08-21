@@ -33,14 +33,13 @@ while true; do
     echo "请输入容器的名称: "
     read -p "输入容器名称[default: stellauto]: " container_name
     container_name=${container_name:-stellauto}
-    # 判断容器名称是否存在
-    if [ -z "$(docker ps -a --filter name=$container_name --format '{{.Names}}')" ]; then
-        # 不存在容器名称, 则使用输入的名称
-        echo "容器名称可用"
-        break
+    # 判断容器名称是否存在(严格相等, 存在多个部分名称的容器需要逐个判断)
+    echo ${PED} | sudo docker inspect $container_name -f '{{.Name}}' >/dev/null
+    if [ $? -eq 0 ]; then
+        echo "容器名称 $container_name 已经存在, 请重新输入."
     else
-        # 存在容器名称, 则提示输入其他名称
-        echo "容器名称已存在, 请重新输入"
+        echo "容器名称 $container_name 可用."
+        break
     fi
 done
 
@@ -55,7 +54,7 @@ fi
 # 不存在容器, 则新建一个名为$container_name的容器
 echo "正在新建容器 $container_name..."
 xhost +
-docker run -it -d -u stella --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $container_name ycrad/$image:latest
+docker run -it -d -u stella --device=/dev/input/event7:/dev/input/event7 --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $container_name ycrad/$image:latest
 docker exec -it -u stella $container_name /bin/bash -c "cd ~ && mkdir workspace"
 
 # 获取容器的ID
