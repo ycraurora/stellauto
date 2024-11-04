@@ -11,16 +11,19 @@ while true; do
     1)
         echo "即将部署 Ubuntu 镜像"
         image="stellauto"
+        local_dir="/home/stella/workspace/dev/stellauto"
         break
         ;;
     2)
         echo "即将部署 ROS2 镜像"
         image="stellauto-ros2"
+        local_dir="/home/stella/workspace/dev/stellauto-sim"
         break
         ;;
     3)
         echo "即将部署 Xmake 镜像"
         image="stellauto-xmake"
+        local_dir="/home/stella/workspace/dev/stellauto-xmake"
         break
         ;;
     *)
@@ -54,8 +57,13 @@ fi
 # 不存在容器, 则新建一个名为$container_name的容器
 echo "正在新建容器 $container_name..."
 xhost +
-docker run -it -d -u stella --device=/dev/input/event7:/dev/input/event7 --net=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --name $container_name ycrad/$image:latest
-docker exec -it -u stella $container_name /bin/bash -c "cd ~ && mkdir workspace"
+docker run -it -d -u stella \
+    --device=/dev/input/event7:/dev/input/event7 \
+    --net=host -e DISPLAY=$DISPLAY \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $local_dir:/home/stella/workspace/stellauto \
+    --name $container_name \
+    ycrad/$image:latest
 
 # 获取容器的ID
 container_id=$(docker ps -a --filter ancestor=ycrad/$image:latest --format '{{.ID}}')
