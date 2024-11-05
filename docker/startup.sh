@@ -5,25 +5,32 @@ while true; do
     echo "1. Ubuntu"
     echo "2. ROS2"
     echo "3. Xmake"
+    echo "4. stellauto-next"
     read -p "输入选择(1-3): " image_choice
 
     case $image_choice in
     1)
         echo "即将部署 Ubuntu 镜像"
-        image="stellauto"
+        image="stellauto:latest"
         local_dir="/home/stella/workspace/dev/stellauto"
         break
         ;;
     2)
         echo "即将部署 ROS2 镜像"
-        image="stellauto-ros2"
+        image="stellauto-ros2:latest"
         local_dir="/home/stella/workspace/dev/stellauto-sim"
         break
         ;;
     3)
         echo "即将部署 Xmake 镜像"
-        image="stellauto-xmake"
+        image="stellauto-xmake:latest"
         local_dir="/home/stella/workspace/dev/stellauto-xmake"
+        break
+        ;;
+    4)
+        echo "即将部署 stellauto-next 镜像"
+        image="stellauto-next:latest"
+        local_dir="/home/stella/workspace/dev/stellauto-next"
         break
         ;;
     *)
@@ -48,10 +55,10 @@ done
 
 set -e
 # 判断本地是否存在docker镜像ycrad/$image:latest
-if [ -z "$(docker images -q ycrad/$image:latest 2>/dev/null)" ]; then
+if [ -z "$(docker images -q ycrad/$image 2>/dev/null)" ]; then
     # 不存在镜像, 则拉取该镜像
-    echo "不存在镜像 ycrad/$image:latest, 正在拉取..."
-    docker pull ycrad/$image:latest
+    echo "不存在镜像 ycrad/$image, 正在拉取..."
+    docker pull ycrad/$image
 fi
 
 # 不存在容器, 则新建一个名为$container_name的容器
@@ -60,13 +67,14 @@ xhost +
 docker run -it -d -u stella \
     --device=/dev/input/event7:/dev/input/event7 \
     --net=host -e DISPLAY=$DISPLAY \
+    -m 10G --memory-swap 16G \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $local_dir:/home/stella/workspace/stellauto \
     --name $container_name \
-    ycrad/$image:latest
+    ycrad/$image
 
 # 获取容器的ID
-container_id=$(docker ps -a --filter ancestor=ycrad/$image:latest --format '{{.ID}}')
+container_id=$(docker ps -a --filter ancestor=ycrad/$image --format '{{.ID}}')
 # 判断容器是否在运行
 if [ "$(docker inspect -f '{{.State.Running}}' $container_id)" = "true" ]; then
     # 容器在运行, 则直接启动该容器
