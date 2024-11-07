@@ -64,7 +64,7 @@ fi
 # 不存在容器, 则新建一个名为$container_name的容器
 echo "正在新建容器 $container_name..."
 xhost +
-docker run -it -d -u stella \
+docker run --gpus=all -it -d -u stella \
     --device=/dev/input/event7:/dev/input/event7 \
     --net=host -e DISPLAY=$DISPLAY \
     -m 10G --memory-swap 16G \
