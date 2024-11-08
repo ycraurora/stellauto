@@ -2,39 +2,25 @@
 
 while true; do
     echo "请选择需要部署的镜像: "
-    echo "1. Ubuntu"
-    echo "2. ROS2"
-    echo "3. Xmake"
-    echo "4. stellauto-next"
-    read -p "输入选择(1-3): " image_choice
+    echo "1. Stellauto V1"
+    echo "2. Stellauto V2"
+    read -p "输入选择(1-2): " image_choice
 
     case $image_choice in
     1)
-        echo "即将部署 Ubuntu 镜像"
+        echo "即将部署 Stellauto V1 镜像"
         image="stellauto:latest"
         local_dir="/home/stella/workspace/dev/stellauto"
         break
         ;;
     2)
-        echo "即将部署 ROS2 镜像"
-        image="stellauto-ros2:latest"
-        local_dir="/home/stella/workspace/dev/stellauto-sim"
-        break
-        ;;
-    3)
-        echo "即将部署 Xmake 镜像"
+        echo "即将部署 Stellauto V2 镜像"
         image="stellauto-xmake:latest"
         local_dir="/home/stella/workspace/dev/stellauto-xmake"
         break
         ;;
-    4)
-        echo "即将部署 stellauto-next 镜像"
-        image="stellauto-next:latest"
-        local_dir="/home/stella/workspace/dev/stellauto-next"
-        break
-        ;;
     *)
-        echo "无效的输入. 请输入 1-3."
+        echo "无效的输入. 请输入 1-2."
         ;;
     esac
 done
