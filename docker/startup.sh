@@ -47,10 +47,21 @@ if [ -z "$(docker images -q ycrad/$image 2>/dev/null)" ]; then
     docker pull ycrad/$image
 fi
 
+# 判断 docker 是否已支持 nvidia-docker
+RUNTIME=$(docker info --format '{{.Runtimes}}' | grep nvidia)
+if [ -z "$RUNTIME" ]; then
+    echo "当前环境不支持 nvidia-docker, 请检查配置."
+    gpu_flag=""
+else
+    echo "当前环境支持 nvidia-docker, 启动容器时将启动 --gpus=all 参数."
+    gpu_flag="--gpus=all"
+fi
+
 # 不存在容器, 则新建一个名为$container_name的容器
 echo "正在新建容器 $container_name..."
 xhost +
-docker run --gpus=all -it -d -u stella \
+set -x
+docker run $gpu_flag -it -d -u stella \
     --device=/dev/input/event7:/dev/input/event7 \
     --net=host -e DISPLAY=$DISPLAY \
     -m 10G --memory-swap 16G \
@@ -58,6 +69,7 @@ docker run --gpus=all -it -d -u stella \
     -v $local_dir:/home/stella/workspace/stellauto \
     --name $container_name \
     ycrad/$image
+set +x
 
 # 获取容器的ID
 container_id=$(docker ps -a --filter ancestor=ycrad/$image --format '{{.ID}}')
