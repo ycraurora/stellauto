@@ -10,13 +10,13 @@ while true; do
     1)
         echo "即将部署 Stellauto V1 镜像"
         image="stellauto:latest"
-        local_dir="/home/stella/workspace/dev/stellauto"
+        local_dir="$HOME/workspace/dev/stellauto"
         break
         ;;
     2)
         echo "即将部署 Stellauto V2 镜像"
         image="stellauto-xmake:latest"
-        local_dir="/home/stella/workspace/dev/stellauto-xmake"
+        local_dir="$HOME/workspace/dev/stellauto-xmake"
         break
         ;;
     *)
