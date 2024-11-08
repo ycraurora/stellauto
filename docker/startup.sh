@@ -48,8 +48,7 @@ if [ -z "$(docker images -q ycrad/$image 2>/dev/null)" ]; then
 fi
 
 # 判断 docker 是否已支持 nvidia-docker
-RUNTIME=$(docker info --format '{{.Runtimes}}' | grep nvidia)
-if [ -z "$RUNTIME" ]; then
+if [ -z $(docker info --format '{{.Runtimes}}' | grep nvidia) ]; then
     echo "当前环境不支持 nvidia-docker, 请检查配置."
     gpu_flag=""
 else
