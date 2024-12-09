@@ -3,6 +3,9 @@ StellaAutonomous System 脚本工具
 
 详细环境部署请参看本 repo 的[Wiki](https://github.com/ycraurora/stellauto-env/wiki)
 
+## 注意
+Stellauto V2 已随 stellauto-xmake 项目发布与更新, 本项目关于 Stellauto V2 的内容已废弃.
+
 ## 用法
 使用 git 下载脚本至本地
 ```

@@ -1,28 +1,9 @@
 #! /bin/bash
 
 while true; do
-    echo "请选择需要部署的镜像: "
-    echo "1. Stellauto V1"
-    echo "2. Stellauto V2"
-    read -p "输入选择(1-2): " image_choice
-
-    case $image_choice in
-    1)
-        echo "即将部署 Stellauto V1 镜像"
-        image="stellauto:latest"
-        local_dir="$HOME/workspace/dev/stellauto"
-        break
-        ;;
-    2)
-        echo "即将部署 Stellauto V2 镜像"
-        image="stellauto-xmake:latest"
-        local_dir="$HOME/workspace/dev/stellauto-xmake"
-        break
-        ;;
-    *)
-        echo "无效的输入. 请输入 1-2."
-        ;;
-    esac
+    echo "即将部署 Stellauto V1 镜像"
+    image="stellauto:latest"
+    local_dir="$HOME/workspace/dev/stellauto"
 done
 
 while true; do
